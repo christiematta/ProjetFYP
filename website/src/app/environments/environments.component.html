@@ -1,0 +1,51 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i>
+          Environments Table
+        </div>
+        <div class="card-body">
+
+          <div class="form-group md-form mr-auto mb-4">
+            <input type="text" class="form-control" placeholder="Search Here" [(ngModel)]="term">
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+        
+                <th>Name</th>
+                <th>Created By</th>
+                <th>Deleted</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let environment of environments | filter:term  | paginate:{itemsPerPage: 4, currentPage:p}">
+                <td><button type="button" class="btn btn-link"
+                  [routerLink]="[environment.name]">{{environment.name}}</button></td>
+                <td>{{environment.createdBy}}</td>
+                <td *ngIf="environment.isDeleted === true">
+                  <span class="badge badge-success"><a>{{environment.isDeleted}}</a></span>
+                </td>
+                <td *ngIf="environment.isDeleted === false">
+                  <span class="badge badge-danger">{{environment.isDeleted}}</span>
+                </td>
+
+                <td *ngIf="environment.isDeleted === false">
+                  <button type="button" class="btn btn-sm btn-pill btn-danger"
+                    (click)="deleteProject(project.id)">Delete</button></td>
+              </tr>
+            </tbody>
+          </table>
+          <div id="pagination">
+            <pagination-controls (pageChange)="p=$event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

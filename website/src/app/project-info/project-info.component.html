@@ -1,0 +1,95 @@
+<!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
+
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card"  (dblclick)="save(project.id)">
+  
+          <div class="card-header">
+            <i class="fa fa-align-justify"></i>
+            Project Info
+          </div>
+          <div class="card-body">
+  
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th> Owner </th>
+                  <th>Deleted</th>
+                  <th>Created By</th>
+                  <th>Creation Date</th>
+                  <th>Last Modified On</th>
+                  <th>Last Modified By</th>
+                </tr>
+              </thead>
+  
+              <tbody >
+  
+                <td *ngIf="!editMode" (click)="edit()">
+                  {{project.name}}
+                
+                </td>
+  
+                <td *ngIf="editMode">
+                  <input type="text" [(ngModel)]="variable" >
+                </td> 
+                <td>{{project.owner}}</td>
+  
+                <td *ngIf="project.isDeleted === true">
+                  <span class="badge badge-success">{{project.isDeleted}}</span>
+                </td>
+                <td *ngIf="project.isDeleted === false">
+                  <span class="badge badge-danger">{{project.isDeleted}}</span>
+                </td> 
+                <td>{{project.createdBy}}</td>
+                <td>{{project.createdOn| date: 'yyyy-MM-dd'}}</td>
+                <td>{{project.modifiedOn| date: 'yyyy-MM-dd'}}</td>
+                <td>{{project.modifiedBy}}</td>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button type="button" *ngIf="!showEnv" class="btn btn-link"
+             (click)="showEnvironments(project.id)"> <h4> See environments</h4></button>
+             <button type="button"  *ngIf="showEnv" class="btn btn-link"
+             (click)="hideEnv()"> <h4> Hide environments</h4></button>
+  </div>
+ <div *ngIf="showEnv"> 
+
+
+             <table class="table">
+              <thead>
+                <tr>
+          
+                  <th>Name</th>
+                  <th>Created By</th>
+                  <th>Deleted</th>
+                </tr>
+              </thead>
+  
+              <tbody>
+                <tr *ngFor="let environment of environments | filter:term  | paginate:{itemsPerPage: 4, currentPage:p}">
+                  <td><button type="button" class="btn btn-link"
+                    [routerLink]="['../../environments',environment.name]"><h4>{{environment.name}}</h4></button></td>
+                  <td>{{environment.createdBy}}</td>
+                  <td *ngIf="environment.isDeleted === true">
+                    <span class="badge badge-success"><a>{{environment.isDeleted}}</a></span>
+                  </td>
+                  <td *ngIf="environment.isDeleted === false">
+                    <span class="badge badge-danger">{{environment.isDeleted}}</span>
+                  </td>
+  
+                 
+                </tr>
+              </tbody>
+            </table>
+            <div id="pagination">
+              <pagination-controls (pageChange)="p=$event"></pagination-controls>
+            </div></div> 

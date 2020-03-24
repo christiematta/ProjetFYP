@@ -1,0 +1,255 @@
+<!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+<h3> User <b>{{cookievalue}}</b> 
+</h3>
+  <button type="button"  (click)="refresh()">  <i class="fa fa-refresh"></i></button>
+  <br>
+  <br>
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card"  (dblclick)="save(environment.id)">
+  
+          <div class="card-header">
+            <i class="fa fa-align-justify"></i>
+            Basic Informations   
+            <script>
+              <button onclick="location.reload();">Refresh Page</button>
+              </script>
+          </div>
+          <div class="card-body">
+            <div>
+             <b>Part of projet : </b><button type="button" class="btn btn-link"
+             [routerLink]="['../../projects',environment.projectId]"> <h4> {{projectName}}</h4></button>
+            </div>
+           
+            <div>
+             <b>Version : </b> {{environment.version}}
+            </div>
+            <div>
+          <b>  Tags :</b> 
+            <div style="display:inline-block" *ngFor="let tag of tags" >
+              <span class="badge badge-secondary" >&nbsp;{{tag}}</span> &nbsp;
+            </div>
+          </div>
+            <br>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th> Owner </th>
+                  <th>Deleted</th>
+                  <th>Created By</th>
+                  <th>Creation Date</th>
+                  <th>Last Modified On</th>
+                  <th>Last Modified By</th>
+                </tr>
+              </thead>
+  
+              <tbody >
+  
+                <td *ngIf="!editMode" (click)="edit()">
+                  {{environment.name}}
+                
+                </td>
+  
+                <td *ngIf="editMode">
+                  <input type="text" [(ngModel)]="variable" >
+                </td> 
+                <td>{{environment.owner}}</td>
+  
+                <td *ngIf="environment.isDeleted === true">
+                  <span class="badge badge-success">{{environment.isDeleted}}</span>
+                </td>
+                <td *ngIf="environment.isDeleted === false">
+                  <span class="badge badge-danger">{{environment.isDeleted}}</span>
+                </td> 
+                <td>{{environment.createdBy}}</td>
+                <td>{{environment.createdOn| date: 'yyyy-MM-dd'}}</td>
+                <td>{{environment.modifiedOn| date: 'yyyy-MM-dd'}}</td>
+                <td>{{environment.modifiedBy}}</td>
+              </tbody>
+            </table>
+           
+          
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card"  (dblclick)="save(environment.id)">
+  
+          <div class="card-header">
+            <i class="fa fa-chevron-right"></i>
+            Operations   
+            
+          </div>
+          <div class="card-body">
+        
+            <button mat-button data-toggle="tooltip" title=" Run Start Services Operation" (click)="startServices(environment.name)"> <span class="glyphicon glyphicon-play" aria-hidden="true"></span> </button>    Start Services 
+              <br>
+              <div class="alert alert-secondary" *ngIf="startServ" (click)="edit()" role="alert">
+                Start Services Request sent Successfully. Status : Queued
+              </div>
+            
+            
+              
+              <button mat-button data-toggle="tooltip" title=" Run Stop Services Operation"> <span class="glyphicon glyphicon-stop" aria-hidden="true"></span> </button>
+              Stop Services
+               <br>
+               <button mat-button data-toggle="tooltip" title=" Run Remove Environment Operation"> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> </button>
+Remove Environment           <br><br>
+              <div class="alert alert-danger" role="alert">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Operation</th>
+                      <th>Date</th>
+                      <th> Hour</th>
+                      <th>Type</th>
+                      <th>User</th>
+                      <th>Status</th>
+                      <th>Events</th>
+                    </tr>
+                  </thead>
+      
+                  <tbody >
+      <tr *ngFor="let op of requests | filter:term  | paginate:{itemsPerPage: 4, currentPage:p}">
+                    <td>{{op.operation}}</td>
+                    <td>{{op.date| date: 'yyyy-MM-dd'}}</td>
+                    <td>{{op.date| date: 'hh:mm:ss'}}</td>
+                    <td>{{op.type}}</td>
+                    <td>{{op.user}}</td>
+                    <td>{{op.status}}</td> 
+                    <td><u  (click)="displayEvents(op.events)">events</u></td></tr>
+               
+                  </tbody>
+                </table>
+                <div id="pagination">
+                  <pagination-controls (pageChange)="p=$event"></pagination-controls>
+                </div>
+          </div>
+
+      <div class="alert alert-dark" role="alert" *ngIf="seeEvents" >
+        <span class="close" (click)=closeEvents()>&times;</span>
+        <div *ngFor="let event of events">
+            <table class="table" >
+              <thead>
+                <tr>
+                  <th>Event Id</th>
+                  <th> Created At</th>
+                 
+                </tr>
+              </thead>
+ 
+              <tbody  >
+  <tr >
+                <td>{{event.eventId}}</td>
+                <td>{{event.createdAt}}</td>
+               
+                </tr>
+            
+              </tbody>
+            </table>
+           <b> &nbsp;  Log: </b>     <br><br>
+            <small>{{event.log}}</small>    
+      </div>   
+</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card"  (dblclick)="save(environment.id)">
+  
+          <div class="card-header">
+            <i class="fa fa-desktop"></i>
+            Host
+          </div>
+          <div class="card-body" >
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Host</th>
+                  <th> Username</th>
+                  <th>Password</th>
+                </tr>
+              </thead>
+  
+              <tbody >
+                <tr >
+                  <td>{{environment.host.name}}
+                  </td>
+                  <td>{{environment.host.credentials.username}}
+                  </td>
+                  <td>{{environment.host.credentials.password}}
+                  </td>
+                </tr>
+               
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card"  (dblclick)="save(environment.id)">
+  
+          <div class="card-header">
+            <i class="fa fa-database"></i>
+            Databases
+          </div>
+          <div class="card-body" >
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>DB name</th>
+                  <th> Type </th>
+                  <th>DB server</th>
+                  <th>Host</th>
+                  <th> Port </th>
+                  <th>Username</th>
+                  <th>Password</th>
+                </tr>
+              </thead>
+  
+              <tbody >
+                <tr *ngFor="let db of databases">
+                  <td>{{db.name}}
+                  </td>
+                  <td>{{db.type}}
+                  </td>
+                  <td>{{db.dbserver.name}}
+                  </td>
+                  <td>{{db.dbserver.host}}
+                  </td>
+                  <td>{{db.dbserver.port}}
+                  </td>
+                  <td>{{db.dbserver.username}}
+                  </td>
+                  <td>{{db.dbserver.password}}
+                  </td>
+                </tr>
+               
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

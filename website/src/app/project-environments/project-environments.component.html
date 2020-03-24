@@ -1,0 +1,45 @@
+<div class="animated fadeIn">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+  
+          <div class="card-header">
+            <i class="fa fa-align-justify"></i> 
+            Environments Table
+          </div>
+  
+          <div class="card-body">
+            
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Environment ID</th>
+                  <th>Environment Name</th>
+                  <th>Environment Created by</th>
+                  <th>Environment Deleted</th>
+                </tr>
+              </thead>
+  
+              <tbody>
+                <tr  *ngFor="let environment of environments | paginate:{itemsPerPage: 2, currentPage:p}">
+                  <td>{{environment.env_id}}</td>
+                  <td>{{environment.env_name}}</td>
+                  <td>{{environment.env_created_by}}</td>
+                  <td *ngIf="environment.env_deleted === true">
+                    <span class="badge badge-success">{{environment.env_deleted}}</span>
+                  </td>
+                  <td *ngIf="environment.env_deleted === false">
+                    <span class="badge badge-danger">{{environment.env_deleted}}</span>
+                  </td>
+                  <td *ngIf="environment.env_deleted === false"> 
+                </tr>
+            </tbody>
+        </table>
+        <div id="pagination">
+          <pagination-controls (pageChange)="p=$event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
