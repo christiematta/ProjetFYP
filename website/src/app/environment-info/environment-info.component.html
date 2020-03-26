@@ -168,7 +168,7 @@
     </div>
   </div>
 
-  <div  *ngIf="!environment.isDeleted" class="animated fadeIn">
+<div  *ngIf="!environment.isDeleted" class="animated fadeIn">
     <div class="row">
       <div class="col-lg-12">
         <div class="card"  (dblclick)="save(environment.id)">
@@ -179,20 +179,19 @@
             
           </div>
           <div class="card-body">
-        
-            <button mat-button data-toggle="tooltip" title=" Run Start Services Operation" (click)="startServices(environment.name)"> <span class="glyphicon glyphicon-play" aria-hidden="true"></span> </button>    Start Services 
-              <br>
-              <div class="alert alert-secondary" *ngIf="startServ" (click)="edit()" role="alert">
-                Start Services Request sent Successfully. Status : Queued
-              </div>
-            
+            <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+              <button type="button" (click)="startServices(environment.name)" class="btn btn-secondary"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> Start Services</button>
+              <button type="button" class="btn btn-secondary"><span class="glyphicon glyphicon-stop" aria-hidden="true"> </span>Stop Services</button>
+              <button type="button" class="btn btn-secondary"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Remove</button>
+            </div>
+            <div class="alert alert-secondary" *ngIf="startServ" (click)="edit()" role="alert">
+              Start Services Request sent Successfully. Status : Queued
+            </div>
+          
+      
             
               
-              <button mat-button data-toggle="tooltip" title=" Run Stop Services Operation"> <span class="glyphicon glyphicon-stop" aria-hidden="true"></span> </button>
-              Stop Services
-               <br>
-               <button mat-button data-toggle="tooltip" title=" Run Remove Environment Operation"> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> </button>
-Remove Environment           <br><br>
+           <br><br>
               <div class="alert alert-danger" role="alert">
                 <table class="table">
                   <thead>
@@ -254,4 +253,5 @@ Remove Environment           <br><br>
       </div>
     </div>
   </div>
+ 
  
