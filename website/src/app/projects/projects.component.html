@@ -26,7 +26,7 @@
             <tbody>
               <tr *ngFor="let project of projects | filter:term  | paginate:{itemsPerPage: 4, currentPage:p}">
                 <td><button type="button" class="btn btn-link"
-                  [routerLink]="[project.name]">{{project.name}}</button></td>
+                  [routerLink]="[project.id]">{{project.name}}</button></td>
                 <td>{{project.createdBy}}</td>
                 <td *ngIf="project.isDeleted === true">
                   <span class="badge badge-success"><a>{{project.isDeleted}}</a></span>

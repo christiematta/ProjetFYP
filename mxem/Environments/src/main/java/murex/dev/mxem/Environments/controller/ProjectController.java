@@ -92,5 +92,16 @@ public class ProjectController {
         }
     }
 
+    @DeleteMapping(path="/{projId}")
+    public ResponseEntity deleteEnvironmentById(@PathVariable String projId, @RequestHeader("Authorization") String token)  {
+
+        projectService.deleteProjectById(projId,token);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
+
+    }
+
+
 
 }

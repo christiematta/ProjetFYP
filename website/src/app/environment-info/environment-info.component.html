@@ -81,7 +81,94 @@
     </div>
   </div>
 
-  <div class="animated fadeIn">
+ 
+  <div *ngIf="!environment.isDeleted" class="animated fadeIn">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card"  (dblclick)="save(environment.id)">
+  
+          <div class="card-header">
+            <i class="fa fa-desktop"></i>
+            Host
+          </div>
+          <div class="card-body" >
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Host</th>
+                  <th> Username</th>
+                  <th>Password</th>
+                </tr>
+              </thead>
+  
+              <tbody >
+                <tr >
+                  <td>{{environment.host.name}}
+                  </td>
+                  <td>{{environment.host.credentials.username}}
+                  </td>
+                  <td>{{environment.host.credentials.password}}
+                  </td>
+                </tr>
+               
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div  *ngIf="!environment.isDeleted" class="animated fadeIn">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card"  (dblclick)="save(environment.id)">
+  
+          <div class="card-header">
+            <i class="fa fa-database"></i>
+            Databases
+          </div>
+          <div class="card-body" >
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>DB name</th>
+                  <th> Type </th>
+                  <th>DB server</th>
+                  <th>Host</th>
+                  <th> Port </th>
+                  <th>Username</th>
+                  <th>Password</th>
+                </tr>
+              </thead>
+  
+              <tbody >
+                <tr *ngFor="let db of databases">
+                  <td>{{db.name}}
+                  </td>
+                  <td>{{db.type}}
+                  </td>
+                  <td>{{db.dbserver.name}}
+                  </td>
+                  <td>{{db.dbserver.host}}
+                  </td>
+                  <td>{{db.dbserver.port}}
+                  </td>
+                  <td>{{db.dbserver.username}}
+                  </td>
+                  <td>{{db.dbserver.password}}
+                  </td>
+                </tr>
+               
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div  *ngIf="!environment.isDeleted" class="animated fadeIn">
     <div class="row">
       <div class="col-lg-12">
         <div class="card"  (dblclick)="save(environment.id)">
@@ -168,88 +255,3 @@ Remove Environment           <br><br>
     </div>
   </div>
  
-  <div class="animated fadeIn">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="card"  (dblclick)="save(environment.id)">
-  
-          <div class="card-header">
-            <i class="fa fa-desktop"></i>
-            Host
-          </div>
-          <div class="card-body" >
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Host</th>
-                  <th> Username</th>
-                  <th>Password</th>
-                </tr>
-              </thead>
-  
-              <tbody >
-                <tr >
-                  <td>{{environment.host.name}}
-                  </td>
-                  <td>{{environment.host.credentials.username}}
-                  </td>
-                  <td>{{environment.host.credentials.password}}
-                  </td>
-                </tr>
-               
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="animated fadeIn">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="card"  (dblclick)="save(environment.id)">
-  
-          <div class="card-header">
-            <i class="fa fa-database"></i>
-            Databases
-          </div>
-          <div class="card-body" >
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>DB name</th>
-                  <th> Type </th>
-                  <th>DB server</th>
-                  <th>Host</th>
-                  <th> Port </th>
-                  <th>Username</th>
-                  <th>Password</th>
-                </tr>
-              </thead>
-  
-              <tbody >
-                <tr *ngFor="let db of databases">
-                  <td>{{db.name}}
-                  </td>
-                  <td>{{db.type}}
-                  </td>
-                  <td>{{db.dbserver.name}}
-                  </td>
-                  <td>{{db.dbserver.host}}
-                  </td>
-                  <td>{{db.dbserver.port}}
-                  </td>
-                  <td>{{db.dbserver.username}}
-                  </td>
-                  <td>{{db.dbserver.password}}
-                  </td>
-                </tr>
-               
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>

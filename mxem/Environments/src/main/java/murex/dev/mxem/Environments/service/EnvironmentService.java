@@ -60,6 +60,15 @@ public class EnvironmentService implements IEnvironmentService {
         return environment;
     }
 
+    public void deleteEnvironmentById(String envId, String token){
+        Environment env = findById(envId);
+        env.setIsDeleted(true);
+        env.setModifiedBy(authorizationService.getUsernameFromToken(token));
+        env.setModifiedOn(new Date());
+        environmentRepository.save(env);
+    }
+
+
     public List<Environment> findByProjectId(String id){
         return environmentRepository.findByProjectId(id);
     }

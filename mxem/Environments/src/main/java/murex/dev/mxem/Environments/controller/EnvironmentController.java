@@ -131,6 +131,17 @@ public class EnvironmentController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
         }
     }
+
+    @DeleteMapping(path="/{envId}")
+    public ResponseEntity deleteEnvironmentById(@PathVariable String envId, @RequestHeader("Authorization") String token)  {
+
+        environmentService.deleteEnvironmentById(envId,token);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
+
+    }
+
 //
 //    @DeleteMapping
 //    public ResponseEntity deleteAllEnvironments(){

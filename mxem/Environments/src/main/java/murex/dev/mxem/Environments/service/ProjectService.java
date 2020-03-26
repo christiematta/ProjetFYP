@@ -51,4 +51,13 @@ public class ProjectService implements IProjectService{
         return project;
     }
 
+    public void deleteProjectById(String envId,String token){
+        Project proj = findById(envId);
+        proj.setIsDeleted(true);
+        proj.setModifiedBy(authorizationService.getUsernameFromToken(token));
+        proj.setModifiedOn(new Date());
+        projectRepository.save(proj);
+    }
+
+
 }
